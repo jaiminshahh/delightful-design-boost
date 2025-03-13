@@ -4,9 +4,24 @@ import { MessageSquare } from "lucide-react";
 
 interface HeaderProps {
   openSettings: () => void;
+  isSettingsOpen: boolean;
+  closeSettings: () => void;
 }
 
-const Header = ({ openSettings }: HeaderProps) => {
+const Header = ({ openSettings, isSettingsOpen, closeSettings }: HeaderProps) => {
+  const handleSettingsClick = () => {
+    if (isSettingsOpen) {
+      closeSettings();
+    } else {
+      openSettings();
+    }
+  };
+
+  const handleAboutClick = () => {
+    closeSettings();
+    window.open("#about", "_self");
+  };
+
   return (
     <header className="flex justify-between items-center p-6 border-b border-border/30 bg-background/80 backdrop-blur-md sticky top-0 z-10">
       <div className="flex items-center gap-3">
@@ -24,14 +39,14 @@ const Header = ({ openSettings }: HeaderProps) => {
         <Button 
           variant="outline" 
           className="text-sm shadow-sm hover:shadow-md transition-all"
-          onClick={() => window.open("#about", "_self")}
+          onClick={handleAboutClick}
         >
           About
         </Button>
         <Button 
-          variant="outline" 
+          variant={isSettingsOpen ? "secondary" : "outline"}
           className="text-sm shadow-sm hover:shadow-md transition-all"
-          onClick={openSettings}
+          onClick={handleSettingsClick}
         >
           Settings
         </Button>

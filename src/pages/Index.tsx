@@ -11,20 +11,23 @@ const Index = () => {
   const [settingsOpen, setSettingsOpen] = useState(false);
   const isMobile = useIsMobile();
 
+  const openSettings = () => setSettingsOpen(true);
+  const closeSettings = () => setSettingsOpen(false);
+
   return (
-    <div className="flex flex-col h-screen overflow-hidden relative">
+    <div className="flex flex-col h-screen overflow-hidden relative bg-[#f1f1f1]">
       {/* Overlay when settings panel is open on mobile */}
       {settingsOpen && isMobile && (
         <div 
           className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40"
-          onClick={() => setSettingsOpen(false)}
+          onClick={closeSettings}
         />
       )}
       
       {/* Settings panel */}
       <SettingsPanel 
         isOpen={settingsOpen} 
-        onClose={() => setSettingsOpen(false)} 
+        onClose={closeSettings} 
       />
       
       {/* Mobile settings button */}
@@ -33,13 +36,17 @@ const Index = () => {
           variant="outline"
           size="icon"
           className="fixed bottom-20 right-4 z-30 rounded-full w-12 h-12 shadow-lg bg-background/80 backdrop-blur-sm border border-border/50"
-          onClick={() => setSettingsOpen(true)}
+          onClick={settingsOpen ? closeSettings : openSettings}
         >
           <Settings className="h-5 w-5" />
         </Button>
       )}
       
-      <Header openSettings={() => setSettingsOpen(true)} />
+      <Header 
+        openSettings={openSettings} 
+        isSettingsOpen={settingsOpen} 
+        closeSettings={closeSettings} 
+      />
       
       <main className="flex-1 overflow-hidden relative">
         <ChatInterface />
