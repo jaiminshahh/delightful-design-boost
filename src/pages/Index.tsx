@@ -6,6 +6,7 @@ import { Settings, Menu } from "lucide-react";
 import Header from "@/components/Header";
 import ChatInterface from "@/components/ChatInterface";
 import SettingsPanel from "@/components/SettingsPanel";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const Index = () => {
   const [settingsOpen, setSettingsOpen] = useState(false);
@@ -15,7 +16,7 @@ const Index = () => {
   const closeSettings = () => setSettingsOpen(false);
 
   return (
-    <div className="flex flex-col h-screen overflow-hidden relative bg-[#f1f1f1]">
+    <div className="flex flex-col h-screen overflow-hidden relative bg-gradient-to-b from-blue-50 to-white">
       {/* Overlay when settings panel is open on mobile */}
       {settingsOpen && isMobile && (
         <div 
@@ -35,7 +36,7 @@ const Index = () => {
         <Button
           variant="outline"
           size="icon"
-          className="fixed bottom-20 right-4 z-30 rounded-full w-12 h-12 shadow-lg bg-background/80 backdrop-blur-sm border border-border/50"
+          className="fixed bottom-20 right-4 z-30 rounded-full w-12 h-12 shadow-md bg-white border border-border/50"
           onClick={settingsOpen ? closeSettings : openSettings}
         >
           <Settings className="h-5 w-5" />
